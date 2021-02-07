@@ -7,7 +7,7 @@ using WebStore.Infrastructure.Interfaces;
 
 namespace WebStore.Infrastructure.Services
 {
-    public class InMemoryProductData : IProductData
+    public class SqlProductData : IProductData
     {
         public IEnumerable<Section> GetSections() => TestData.Sections;
 
