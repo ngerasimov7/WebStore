@@ -1,13 +1,19 @@
-﻿@model IEnumerable<Employee>
+﻿@using WebStore.Domain.Entities.Identity
+@model IEnumerable<Employee>
 @{
     Layout = "_LayoutEmployees";
 }
 
 <h3>Сотрудники</h3>
 
-<div>
-    <a asp-action="Create" class="btn btn-primary">Создать</a><a asp-action="Edit" class="btn btn-primary">Создать2</a>
-</div>
+@if (User.IsInRole(Role.Administrator))
+{
+    <div>
+        <a asp-action="Create" class="btn btn-primary">Создать</a>
+        <a asp-action="Edit" class="btn btn-primary">Создать2</a>
+    </div>
+}
+
 
 <table class="table">
     <thead>
@@ -32,13 +38,19 @@
                 <td>
                     <a asp-action="Details" asp-route-id="@employee.Id">
                         <i class="fa fa-info-circle"></i>
-                    </a>|<a asp-action="Edit" asp-route-id="@employee.Id">
-                        <i class="fa fa-edit"></i>
-                    </a>|<form asp-action="DeleteConfirmed" asp-route-id="@employee.Id">
-                        <button type="submit">
-                            <i class="fa fa-trash-o"></i>
-                        </button>
-                    </form>
+                    </a>
+                    @if (User.IsInRole(Role.Administrator))
+                    {
+                        @:|
+                        <a asp-action="Edit" asp-route-id="@employee.Id">
+                            <i class="fa fa-edit"></i>
+                        </a>@:|
+                        <form asp-action="DeleteConfirmed" asp-route-id="@employee.Id">
+                            <button type="submit">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                        </form>
+                    }
                 </td>
             </tr>
         }

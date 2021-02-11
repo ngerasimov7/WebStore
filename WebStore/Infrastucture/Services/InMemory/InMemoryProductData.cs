@@ -5,9 +5,9 @@ using WebStore.Domain;
 using WebStore.Domain.Entities;
 using WebStore.Infrastructure.Interfaces;
 
-namespace WebStore.Infrastructure.Services
+namespace WebStore.Infrastructure.Services.InMemory
 {
-    public class SqlProductData : IProductData
+    public class InMemoryProductData : IProductData
     {
         public IEnumerable<Section> GetSections() => TestData.Sections;
 
@@ -25,5 +25,7 @@ namespace WebStore.Infrastructure.Services
 
             return query;
         }
+
+        public Product GetProductById(int id) => TestData.Products.FirstOrDefault(p => p.Id == id);
     }
 }
